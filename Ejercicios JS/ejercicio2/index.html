@@ -1,0 +1,23 @@
+<!--
+Ejercicio 02
+Crea un formulario donde el usuario pueda ingresar un número del 1 al 99 y,
+al hacer clic en un botón, se muestre en la página la tabla de multiplicar
+de ese número.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ejercicio 2</title>
+        <link rel="stylesheet" href="./css/reset.css">
+        <link rel="stylesheet" href="./css/main.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <input type="number" id="numTabla" placeholder="Escribe un número">
+        <button type="button" onclick="generarTablaMultiplicar()">generar tabla multiplicar</button>
+        <p id="tabla"></p>
+    </body>
+</html>

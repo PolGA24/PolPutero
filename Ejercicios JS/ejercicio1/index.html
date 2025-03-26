@@ -1,0 +1,28 @@
+<!--
+Ejercicio 01
+Crea un formulario en el que el usuario pueda elegir entre tres opciones:
+
+Obtener la fecha actual en milisegundos.
+Obtener la fecha actual en formato dd-MM-yyyy.
+Obtener la hora actual en formato hh:mm:ss.
+Cuando el usuario haga clic en un botón, se debe mostrar el resultado
+correspondiente en la página sin recargarla.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ejercicio 1</title>
+        <link rel="stylesheet" href="./css/reset.css">
+        <link rel="stylesheet" href="./css/main.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <button type="button" onclick="obtenerTiempo(1)">Milisegundos</button>
+        <button type="button" onclick="obtenerTiempo(2)">dd-MM-yy</button>
+        <button type="button" onclick="obtenerTiempo(3)">hh:mm:ss</button>
+        <p id="text"></p>
+    </body>
+</html>
