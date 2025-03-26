@@ -1,0 +1,14 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+button {
+    width: 150px;
+}
+section > input {
+    width: 150px;
+}

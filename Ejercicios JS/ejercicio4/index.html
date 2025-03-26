@@ -1,0 +1,38 @@
+<!--
+Ejercicio 04
+Crea un formulario donde el usuario pueda:
+
+Elegir una operación matemática (suma, resta, multiplicación, división).
+Ingresar dos números.
+Presionar un botón para realizar la operación y mostrar el resultado en la página.
+Si el usuario intenta dividir por 0, debe mostrarse un mensaje de error en pantalla
+indicando que la operación no es válida.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ejercicio 4</title>
+        <link rel="stylesheet" href="./css/reset.css">
+        <link rel="stylesheet" href="./css/main.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <form id="operacion">
+            <section> <!-- SELECCIONAR OPERACION -->
+                <label><input type="radio" name="opcion" value="suma">Suma(+)</label>
+                <label><input type="radio" name="opcion" value="resta">Resta(-)</label>
+                <label><input type="radio" name="opcion" value="multi">Multiplicación(*)</label>
+                <label><input type="radio" name="opcion" value="divi">División(/)</label>
+            </section>
+            <section> <!-- INTRODUCIR VALORES -->
+                <input type="number" name="numero1" placeholder="número 1">
+                <input type="number" name="numero2" placeholder="número 2">
+                <button type="button" onclick="operacionMatematica()">Resolver operación</button>
+                <p id="resultado"></p>
+            </section>
+        </form><br>
+    </body>
+</html>
