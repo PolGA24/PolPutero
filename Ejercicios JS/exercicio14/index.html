@@ -1,0 +1,26 @@
+<!-- 
+Ejercicio 14: Buscar Países (Usando Fetch)
+Crea un formulario donde el usuario ingrese el nombre de un país.
+Al hacer clic en un botón, usa fetch para obtener datos del país desde la API https://restcountries.com/v3.1/name/{nombre} y muestra:
+
+La bandera del país.
+La población.
+El idioma principal.
+La moneda.
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información de Países</title>
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <h1>Busca información sobre un país</h1>
+        <input type="text" id="pais" placeholder="Ingresa el nombre de un país">
+        <button onclick="buscarPais()">Buscar</button>
+        <div id="info"></div>
+    </body>
+</html>
