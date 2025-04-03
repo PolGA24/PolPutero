@@ -13,19 +13,97 @@ En el caso que borremos un servidor també hemos de generar una alerta de tipo_a
 sido dado de baja’ y la fecha actual.
 */
 
+DELIMITER $$
+DROP TRIGGER IF EXISTS update_servidorstatus $$
+CREATE TRIGGER update_servidorstatus AFTER UPDATE ON servidorstatus
+FOR EACH ROW
+BEGIN
+
+  IF NEW.is_broken IS TRUE THEN
+    INSERT INTO alertas VALUES (null, "Prioritario", CONCAT("El servidor ", NEW.id_servidor, " esta estropeado."), null, NOW());
+  END IF;
+
+  IF NEW.ram_upgrade IS TRUE THEN
+    INSERT INTO alertas VALUES (null, "Mantenimento", CONCAT("Ram al servidor ", NEW.id_servidor, " augmentada."), null, NOW());
+    UPDATE servidor SET ram = ram + 256 WHERE id_servidor = NEW.id_servidor;
+  END IF;
+
+  IF NEW.ram_downgrade IS TRUE THEN
+    SET @vram = (SELECT ram FROM servidor WHERE id_servidor = NEW.id_servidor);
+    IF @vram > 256 THEN
+      INSERT INTO alertas VALUES (null, "Mantenimento", CONCAT("Ram al servidor ", NEW.id_servidor, " reducida."), null, NOW());
+      UPDATE servidor SET ram = ram - 256 WHERE id_servidor = NEW.id_servidor;
+    END IF;
+  END IF;
+
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS delete_servidor $$
+CREATE TRIGGER delete_servidor AFTER DELETE ON servidor
+FOR EACH ROW
+BEGIN
+  INSERT INTO alertes VALUES (null, "Baja", CONCAT("El servidor ", OLD.id_servidor, " se ha dado de baja."), null, NOW());
+END $$
+DELIMITER ;
+
 /*
 Ejercicio 02
 Cread los triggers necesarios que registren en una tabla de log todas las inserciones, modificaciones o borrados que se produzcan.
 */
 
+# Primer trigger
 DELIMITER $$
-DROP TRIGGER IF EXISTS insercion $$
-CREATE TRIGGER insercion AFTER UPDATE ON personal
+DROP TRIGGER IF EXISTS insert_persona $$
+CREATE TRIGGER insert_persona AFTER INSERT ON persona
 FOR EACH ROW
 BEGIN
-    /* FUNCIONALIDAD */
+ INSERT INTO log VALUES (null, CONCAT("Se ha añadido un usuario nuevo con id: ",NEW.id," y el DNI: ",NEW.dni));
 END $$
 DELIMITER ;
+
+# Segundo trigger
+DELIMITER $$
+DROP TRIGGER IF EXISTS update_persona $$
+CREATE TRIGGER update_persona AFTER UPDATE ON persona
+FOR EACH ROW
+BEGIN
+
+	IF OLD.nombre <> NEW.nombre THEN
+		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo nombre. El valor antiguao era ",OLD.nombre,". El valor nuevo es ",NEW.nombre,"."));
+	END IF;
+	
+	IF OLD.apellido <> NEW.apellido THEN
+		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo apellido. El valor antiguao era ",OLD.apellido,". El valor nuevo es ",NEW.apellido,"."));
+	END IF;
+
+	IF OLD.apellido2 <> NEW.apellido2 THEN
+		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo apellido2. El valor antiguao era ",OLD.apellido2,". El valor nuevo es ",NEW.apellido2,"."));
+	END IF;
+
+	IF OLD.correo_electronico <> NEW.correo_electronico THEN
+		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo correo_electronico. El valor antiguao era ",OLD.correo_electronico,". El valor nuevo es ",NEW.correo_electronico,"."));
+	END IF;
+
+	IF OLD.dni <> NEW.dni THEN
+		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo dni. El valor antiguao era ",OLD.dni,". El valor nuevo es ",NEW.dni,"."));
+	END IF;
+
+END $$
+DELIMITER ;
+
+# Tercer trigger
+DELIMITER $$
+DROP TRIGGER IF EXISTS delete_persona $$
+CREATE TRIGGER delete_persona AFTER DELETE ON persona
+FOR EACH ROW
+BEGIN
+	INSERT INTO log VALUES (null, CONCAT("Se ha eliminado el registro del usuario con id: ",OLD.id," y el DNI: ",OLD.dni));
+END $$
+DELIMITER ;
+
 
 /*
 Ejercicio 03
