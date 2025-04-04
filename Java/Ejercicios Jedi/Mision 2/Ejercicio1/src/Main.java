@@ -22,14 +22,27 @@ public class Main {
             System.out.println("1. Agregar personaje");
             System.out.println("2. Salir");
             System.out.printf(">");
-            op = sc.nextInt();
 
-            switch (op) {
-                case 1:
-                    personajes.add(crearPersonaje());
-                    write(personajes.getLast());
-                    break;
+            try {
+                op = sc.nextInt();
+                System.out.println();
+                switch (op) {
+                    case 1:
+                        personajes.add(crearPersonaje());
+                        write(personajes.getLast());
+                        break;
+                    case 2:
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opcion no valida");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Opcion no valida");
             }
+
+            System.out.println();
         }
     }
     public static Personaje crearPersonaje() {
@@ -40,9 +53,11 @@ public class Main {
         System.out.printf("Ingrese edad: ");
         int edad = sc.nextInt();
         System.out.printf("Ingrese email: ");
+        sc.nextLine();
         String email = sc.nextLine();
 
         Personaje personaje = new Personaje(nombre, edad, email);
+        System.out.println("Personaje creado!");
         return personaje;
     }
     public static void write(Personaje personaje) {
@@ -52,6 +67,8 @@ public class Main {
         try {
             fileOut = new FileOutputStream("personaje.data");
             output = new DataOutputStream(fileOut);
+
+            output.writeUTF(personaje.toString());
         } catch (IOException ioe) {
             System.out.printf("ERROR: " + ioe.getMessage());
         } catch (Exception e) {
