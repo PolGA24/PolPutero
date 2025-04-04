@@ -5,8 +5,8 @@ Repte Extra: Desxifra el fitxer binari amb un altre programa i mostra els atribu
  */
 
 import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,6 +27,7 @@ public class Main {
             switch (op) {
                 case 1:
                     personajes.add(crearPersonaje());
+                    write(personajes.getLast());
                     break;
             }
         }
@@ -44,9 +45,28 @@ public class Main {
         Personaje personaje = new Personaje(nombre, edad, email);
         return personaje;
     }
-    public static void write(Personaje personaje) throws FileNotFoundException {
-        FileOutputStream fileOut = new FileOutputStream("personaje.data");
-        DataOutputStream output = new DataOutputStream(fileOut);
+    public static void write(Personaje personaje) {
+        FileOutputStream fileOut = null;
+        DataOutputStream output = null;
 
+        try {
+            fileOut = new FileOutputStream("personaje.data");
+            output = new DataOutputStream(fileOut);
+        } catch (IOException ioe) {
+            System.out.printf("ERROR: " + ioe.getMessage());
+        } catch (Exception e) {
+            System.out.printf("ERROR: " + e.getMessage());
+        } finally {
+            try {
+                output.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                fileOut.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
