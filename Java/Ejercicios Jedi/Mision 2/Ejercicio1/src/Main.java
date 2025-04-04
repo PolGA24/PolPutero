@@ -4,11 +4,13 @@ Enunciat: Defineix una classe Java amb atributs i crea un programa que convertei
 Repte Extra: Desxifra el fitxer binari amb un altre programa i mostra els atributs dels objectes.
  */
 
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,7 +22,8 @@ public class Main {
             int op;
             System.out.println("SELECCIONE OPCION");
             System.out.println("1. Agregar personaje");
-            System.out.println("2. Salir");
+            System.out.println("2. Ver ultimo personaje");
+            System.out.println("3. Salir");
             System.out.printf(">");
 
             try {
@@ -32,6 +35,9 @@ public class Main {
                         write(personajes.getLast());
                         break;
                     case 2:
+                        read();
+                        break;
+                    case 3:
                         salir = true;
                         break;
                     default:
@@ -58,32 +64,30 @@ public class Main {
 
         Personaje personaje = new Personaje(nombre, edad, email);
         System.out.println("Personaje creado!");
+
         return personaje;
     }
+    public static void read() {
+        try (FileInputStream fileIn = new FileInputStream("personaje.data");
+             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+
+            Personaje personaje = (Personaje) objectIn.readObject();
+            System.out.println("Nombre: " + personaje.getNombre());
+            System.out.println("Edad: " + personaje.getEdad());
+            System.out.println("Correo: " + personaje.getCorreo());
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al leer el objeto: " + e.getMessage());
+        }
+    }
     public static void write(Personaje personaje) {
-        FileOutputStream fileOut = null;
-        DataOutputStream output = null;
+        try (FileOutputStream fileOut = new FileOutputStream("personaje.data");
+             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
 
-        try {
-            fileOut = new FileOutputStream("personaje.data");
-            output = new DataOutputStream(fileOut);
+            objectOut.writeObject(personaje);
+            System.out.println("Objeto guardado correctamente.");
 
-            output.writeUTF(personaje.toString());
-        } catch (IOException ioe) {
-            System.out.printf("ERROR: " + ioe.getMessage());
-        } catch (Exception e) {
-            System.out.printf("ERROR: " + e.getMessage());
-        } finally {
-            try {
-                output.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                fileOut.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        } catch (IOException e) {
+            System.out.println("Error al guardar el objeto: " + e.getMessage());
         }
     }
 }

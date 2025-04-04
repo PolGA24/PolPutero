@@ -1,4 +1,6 @@
-public class Personaje {
+import java.io.Serializable;
+
+public class Personaje implements Serializable {
     private String nombre;
     private int edad;
     private String correo;
@@ -7,5 +9,15 @@ public class Personaje {
         this.nombre = nombre;
         this.edad = edad;
         this.correo = correo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    public int getEdad() {
+        return edad;
+    }
+    public String getCorreo() {
+        return correo;
     }
 }
