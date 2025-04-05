@@ -1,0 +1,29 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.hamburger {
+    font-size: 30px;
+    background-color: #333;
+    cursor: pointer;
+    padding: 20px;
+}
+
+.menu {
+    display: none; /* Oculto por defecto */
+    flex-direction: column;
+    background-color: #333;
+    padding: 10px;
+}
+
+.menu a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background-color: #575757;
+}
