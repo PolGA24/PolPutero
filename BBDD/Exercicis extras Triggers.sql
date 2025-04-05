@@ -23,19 +23,15 @@ CREATE TRIGGER before_update_movies
 BEFORE UPDATE ON movies
 FOR EACH ROW
 BEGIN
-
-    SET @vversion = (SELECT COUNT(*) FROM movies_version WHERE id = OLD.id) + 1;
+    SET @version = (SELECT COUNT(*) FROM movies_version WHERE id = OLD.id) + 1;
     INSERT INTO movies_version (id, name, year, stockUnits, price, hora_update, version)
-    VALUES (OLD.id, OLD.name, OLD.year, OLD.stockUnits, OLD.price, NOW(), @vversion);
+    VALUES (OLD.id, OLD.name, OLD.year, OLD.stockUnits, OLD.price, NOW(), @version);
 END $$
 DELIMITER ;
-
 
 /*PROVAREM*/
 UPDATE movies SET name = 'El Padrino' WHERE id = 1;
 SELECT * FROM movies_version WHERE id = 1 ORDER BY version DESC;
-
-
 
 /*
 Crea un altre trigger per a la taula movies de la mateixa base de dades anterior. Aquest cop volem que s'executi després d'un INSERT. Dins del
@@ -45,3 +41,4 @@ tenim per cada any de creació. Per tant, si per exemple creem una pel·lícula 
 comprovar si hi ha recompte de pel·lícules per l'any 1999, si n'hi ha, incrementarem el recompte, en cas de que no n'hi hagi, inserirem una
 fila nova per l'any 1999 i li posarem valor 1.
 */
+
