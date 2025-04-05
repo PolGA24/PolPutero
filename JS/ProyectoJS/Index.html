@@ -4,17 +4,22 @@
         <meta charset="UTF-8">
         <title>Proyecto JS</title>
         <link rel="stylesheet" href="css/main.css">
+        <script src="scripts/script.js"></script>
     </head>
     <body>
-        <div class="hamburger" onclick="toggleMenu()">
-            &#9776; <!-- Este símbolo es ☰ -->
+        <h1>Proyecto de JavaScript</h1>
+        <div id="cookieModal" class="cookie-modal">
+            <p>Este sitio utiliza cookies para mejorar tu experiencia. 🍪</p>
+            <button onclick="aceptarCookies()">Aceptar</button>
+            <a href="#">Más información</a>
         </div>
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
         <nav id="menu" class="menu">
             <a href="#">Inicio</a>
             <a href="#">Servicios</a>
+            <a id="modoBoton" onclick="cambiarModo()">🌙 Modo Oscuro</a>
             <a href="#">Contacto</a>
             <a href="#">Acerca de</a>
         </nav>
-        <script src="scripts/script.js"></script>
     </body>
 </html>

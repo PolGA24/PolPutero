@@ -4,15 +4,21 @@ body {
     padding: 0;
 }
 
+body.oscuro {
+    background-color: #121212;
+    color: white;
+}
+
 .hamburger {
     font-size: 30px;
     background-color: #333;
+    color: white;
     cursor: pointer;
     padding: 20px;
 }
 
 .menu {
-    display: none; /* Oculto por defecto */
+    display: none;
     flex-direction: column;
     background-color: #333;
     padding: 10px;
@@ -26,4 +32,41 @@ body {
 
 .menu a:hover {
     background-color: #575757;
+}
+
+.cookie-modal {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.cookie-modal button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cookie-modal a {
+    display: block;
+    color: #ddd;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
