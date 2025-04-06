@@ -6,13 +6,11 @@ function toggleMenu() {
         menu.style.display = "flex";
     }
 }
-
 window.onload = function() {
     if (!localStorage.getItem("cookiesAceptadas")) {
         document.getElementById("cookieModal").style.display = "block";
     }
 };
-
 function aceptarCookies() {
     localStorage.setItem("cookiesAceptadas", true);
     document.getElementById("cookieModal").style.display = "none";

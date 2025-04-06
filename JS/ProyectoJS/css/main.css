@@ -3,12 +3,10 @@ body {
     margin: 0;
     padding: 0;
 }
-
 body.oscuro {
     background-color: #121212;
     color: white;
 }
-
 .hamburger {
     font-size: 30px;
     background-color: #333;
@@ -16,24 +14,20 @@ body.oscuro {
     cursor: pointer;
     padding: 20px;
 }
-
 .menu {
     display: none;
     flex-direction: column;
     background-color: #333;
     padding: 10px;
 }
-
 .menu a {
     color: white;
     padding: 10px;
     text-decoration: none;
 }
-
 .menu a:hover {
     background-color: #575757;
 }
-
 .cookie-modal {
     position: fixed;
     bottom: 20px;
@@ -47,7 +41,6 @@ body.oscuro {
     display: none;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
-
 .cookie-modal button {
     background-color: #4CAF50;
     color: white;
@@ -57,14 +50,12 @@ body.oscuro {
     border-radius: 5px;
     cursor: pointer;
 }
-
 .cookie-modal a {
     display: block;
     color: #ddd;
     margin-top: 10px;
     font-size: 14px;
 }
-
 button {
     padding: 10px 20px;
     cursor: pointer;
