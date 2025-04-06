@@ -17,11 +17,25 @@
             <h1>Web JavaScript</h1>
             <a id="modoBoton" onclick="cambiarModoOscuro()">🌙</a>
         </section>
-        <nav id="menu" class="menu">
-            <a href="#">Inicio</a>
-            <a href="#">Servicios</a>
-            <a href="#">Contacto</a>
-            <a href="#">Acerca de</a>
+        <nav id="menu" class="menu" onclick="toggleMenu()">
+            <a onclick="location.href='#inicio'">Inicio</a>
+            <a onclick="location.href='#servicios'">Servicios</a>
+            <a onclick="location.href='#contacto'">Contacto</a>
+            <a onclick="location.href='#acerca_de'">Acerca de</a>
         </nav>
+        <section id="inicio">
+            <h1>Inicio</h1>
+            <br>
+            <br>
+        </section>
+        <section id="servicios">
+            <h1>Servicios</h1>
+        </section>
+        <section id="contacto">
+            <h1>Contacto</h1>
+        </section>
+        <section id="acerca_de">
+            <h1>Acerda de</h1>
+        </section>
     </body>
 </html>
