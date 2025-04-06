@@ -60,7 +60,8 @@ button {
     margin-bottom: 20px;
 }
 #modoBoton {
-    font-size: 50px;
+    font-size: 40px;
+    padding-top: 10px;
     padding-right: 10px;
 }
 #toolbar {
