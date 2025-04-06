@@ -77,3 +77,9 @@ button {
     justify-content: space-between;
     font-size: 20px;
 }
+#splash_hero {
+    height: 100vmin; /* HACER QUE OCUPE EL 100% DEL VIEWPORT*/
+}
+#informacion {
+    height: 100vmin; /* HACER QUE OCUPE EL 100% DEL VIEWPORT*/
+}
