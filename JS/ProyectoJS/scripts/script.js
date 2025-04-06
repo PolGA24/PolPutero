@@ -19,8 +19,8 @@ function cambiarModo() {
     document.body.classList.toggle("oscuro");
     const boton = document.getElementById("modoBoton");
     if (document.body.classList.contains("oscuro")) {
-        boton.textContent = "☀️ Modo Claro";
+        boton.textContent = "☀️";
     } else {
-        boton.textContent = "🌙 Modo Oscuro";
+        boton.textContent = "🌙";
     }
 }
