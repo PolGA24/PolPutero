@@ -2,24 +2,38 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>Proyecto JS</title>
+        <title>Web JavaScript</title>
         <link rel="stylesheet" href="css/main.css">
         <script src="scripts/script.js"></script>
     </head>
     <body>
-        <h1>Proyecto de JavaScript</h1>
         <div id="cookieModal" class="cookie-modal">
             <p>Este sitio utiliza cookies para mejorar tu experiencia. 🍪</p>
             <button onclick="aceptarCookies()">Aceptar</button>
             <a href="#">Más información</a>
         </div>
-        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
-        <nav id="menu" class="menu">
-            <a href="#">Inicio</a>
-            <a href="#">Servicios</a>
-            <a id="modoBoton" onclick="cambiarModo()">🌙 Modo Oscuro</a>
-            <a href="#">Contacto</a>
-            <a href="#">Acerca de</a>
+        <section id="toolbar">
+            <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+            <h1>Web JavaScript</h1>
+            <a id="modoBoton" onclick="cambiarModoOscuro()">🌙</a>
+        </section>
+        <nav id="menu" class="menu" onclick="toggleMenu()">
+            <a onclick="location.href='#splash_hero'">Splash/Hero</a>
+            <a onclick="location.href='#informacion'">Información</a>
+            <a onclick="location.href='#usuarios'">Usuarios</a>
+            <a onclick="location.href='#footer'">Footer</a>
         </nav>
+        <section id="splash_hero">
+            <h1>Splash/Hero</h1>
+        </section>
+        <section id="informacion">
+            <h1>Información</h1>
+        </section>
+        <section id="usuarios">
+            <h1>Usuarios</h1>
+        </section>
+        <section id="footer">
+            <h1>Footer</h1>
+        </section>
     </body>
 </html>

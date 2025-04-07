@@ -1,72 +1,85 @@
+:root {
+    --blanco: rgb(255, 255, 255);
+    --gris_claro: rgb(87, 87, 87);
+    --gris: rgb(51, 51, 51);
+    --negro: rgb(30, 30, 30);
+}
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     padding: 0;
 }
-
 body.oscuro {
-    background-color: #121212;
-    color: white;
+    background-color: var(--negro);
+    color: var(--blanco);
 }
-
 .hamburger {
     font-size: 30px;
-    background-color: #333;
-    color: white;
     cursor: pointer;
     padding: 20px;
 }
-
 .menu {
     display: none;
     flex-direction: column;
-    background-color: #333;
+    background-color: var(--gris);
     padding: 10px;
 }
-
 .menu a {
-    color: white;
+    color: var(--blanco);
     padding: 10px;
     text-decoration: none;
 }
-
 .menu a:hover {
-    background-color: #575757;
+    background-color: var(--gris_claro);
 }
-
 .cookie-modal {
     position: fixed;
     bottom: 20px;
     left: 20px;
     right: 20px;
-    background-color: #333;
-    color: white;
+    background-color: var(--gris);
+    color: var(--blanco);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     display: none;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px var(--negro);
 }
-
 .cookie-modal button {
-    background-color: #4CAF50;
-    color: white;
+    color: var(--blanco);
     border: none;
     padding: 10px 20px;
     margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
 }
-
 .cookie-modal a {
     display: block;
-    color: #ddd;
+    color: var(--blanco);
     margin-top: 10px;
     font-size: 14px;
 }
-
 button {
     padding: 10px 20px;
     cursor: pointer;
     margin-bottom: 20px;
+}
+#modoBoton {
+    font-size: 40px;
+    padding-top: 10px;
+    padding-right: 10px;
+}
+#toolbar {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--gris);
+    color: var(--blanco);
+    justify-content: space-between;
+    font-size: 20px;
+}
+#splash_hero {
+    height: 100vmin; /* HACER QUE OCUPE EL 100% DEL VIEWPORT*/
+}
+#informacion {
+    height: 100vmin; /* HACER QUE OCUPE EL 100% DEL VIEWPORT*/
 }
