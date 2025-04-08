@@ -18,16 +18,13 @@ DROP TRIGGER IF EXISTS update_servidorstatus $$
 CREATE TRIGGER update_servidorstatus AFTER UPDATE ON servidorstatus
 FOR EACH ROW
 BEGIN
-
   IF NEW.is_broken IS TRUE THEN
     INSERT INTO alertas VALUES (null, "Prioritario", CONCAT("El servidor ", NEW.id_servidor, " esta estropeado."), null, NOW());
   END IF;
-
   IF NEW.ram_upgrade IS TRUE THEN
     INSERT INTO alertas VALUES (null, "Mantenimento", CONCAT("Ram al servidor ", NEW.id_servidor, " augmentada."), null, NOW());
     UPDATE servidor SET ram = ram + 256 WHERE id_servidor = NEW.id_servidor;
   END IF;
-
   IF NEW.ram_downgrade IS TRUE THEN
     SET @vram = (SELECT ram FROM servidor WHERE id_servidor = NEW.id_servidor);
     IF @vram > 256 THEN
@@ -35,10 +32,8 @@ BEGIN
       UPDATE servidor SET ram = ram - 256 WHERE id_servidor = NEW.id_servidor;
     END IF;
   END IF;
-
 END $$
 DELIMITER ;
-
 
 DELIMITER $$
 DROP TRIGGER IF EXISTS delete_servidor $$
@@ -70,7 +65,6 @@ DROP TRIGGER IF EXISTS update_persona $$
 CREATE TRIGGER update_persona AFTER UPDATE ON persona
 FOR EACH ROW
 BEGIN
-
 	IF OLD.nombre <> NEW.nombre THEN
 		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo nombre. El valor antiguao era ",OLD.nombre,". El valor nuevo es ",NEW.nombre,"."));
 	END IF;
@@ -90,7 +84,6 @@ BEGIN
 	IF OLD.dni <> NEW.dni THEN
 		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo dni. El valor antiguao era ",OLD.dni,". El valor nuevo es ",NEW.dni,"."));
 	END IF;
-
 END $$
 DELIMITER ;
 
@@ -104,13 +97,14 @@ BEGIN
 END $$
 DELIMITER ;
 
-
 /*
 Ejercicio 03
 Cread un evento que cada final de mes guarde todos los correos electrónicos de la tabla persona (si el atributo del correo para un
 registro es null hemos de obviar aquella fila) en un fichero de texto que tendrá el nombre siguiente: correos_MES_AÑO.txt (donde MES
 sea el número de mes actual y AÑO sea el año actual).
 */
+
+
 
 /*
 Ejercicio 04
@@ -119,12 +113,16 @@ UPDATE y cuantos registros haya sobre DELETE. El nombre del fichero será estad�
 de la fecha del día en que se ejecuta el evento).
 */
 
+
+
 /*
 Ejercicio 05
 Cread un evento que cada día a las 4:00 de la mañana haga una copia de backup de la base de datos usada en los ejercicios anteriores.
 Las tablas solo deben crearse la primera vez ya que después siempre existirán. Posteriormente debéis vaciarlas y volverlas a llenar
 con la información actual de la BBDD sobre la que hacéis el backup.
 */
+
+
 
 --Ejercicio 06
 --Escribe las operaciones de DCL detalladas en la siguiente lista:
