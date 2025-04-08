@@ -68,19 +68,15 @@ BEGIN
 	IF OLD.nombre <> NEW.nombre THEN
 		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo nombre. El valor antiguao era ",OLD.nombre,". El valor nuevo es ",NEW.nombre,"."));
 	END IF;
-	
 	IF OLD.apellido <> NEW.apellido THEN
 		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo apellido. El valor antiguao era ",OLD.apellido,". El valor nuevo es ",NEW.apellido,"."));
 	END IF;
-
 	IF OLD.apellido2 <> NEW.apellido2 THEN
 		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo apellido2. El valor antiguao era ",OLD.apellido2,". El valor nuevo es ",NEW.apellido2,"."));
 	END IF;
-
 	IF OLD.correo_electronico <> NEW.correo_electronico THEN
 		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo correo_electronico. El valor antiguao era ",OLD.correo_electronico,". El valor nuevo es ",NEW.correo_electronico,"."));
 	END IF;
-
 	IF OLD.dni <> NEW.dni THEN
 		INSERT INTO log VALUES (null, CONCAT("Se ha efectuado un cambio al registro con id: ",OLD.id," en el campo dni. El valor antiguao era ",OLD.dni,". El valor nuevo es ",NEW.dni,"."));
 	END IF;
