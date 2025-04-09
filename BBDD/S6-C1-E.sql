@@ -49,7 +49,6 @@ Ejercicio 02
 Cread los triggers necesarios que registren en una tabla de log todas las inserciones, modificaciones o borrados que se produzcan.
 */
 
-# Primer trigger
 DELIMITER $$
 DROP TRIGGER IF EXISTS insert_persona $$
 CREATE TRIGGER insert_persona AFTER INSERT ON persona
@@ -100,7 +99,14 @@ registro es null hemos de obviar aquella fila) en un fichero de texto que tendr�
 sea el número de mes actual y AÑO sea el año actual).
 */
 
-
+DELIMITER $$
+DROP EVENT IF EXISTS guardarCorreos $$
+CREATE EVENT IF NOT EXISTS guardarCorreos
+ON SCHEDULE EVERY 1 MONTH
+DO BEGIN
+  SET @mail = (SELECT correo FROM persona WHERE correo NOT LIKE "");
+END $$
+DELIMITER ;
 
 /*
 Ejercicio 04
@@ -109,7 +115,14 @@ UPDATE y cuantos registros haya sobre DELETE. El nombre del fichero será estad�
 de la fecha del día en que se ejecuta el evento).
 */
 
-
+DELIMITER $$
+DROP EVENT IF EXISTS guardarRegistros $$
+CREATE EVENT IF NOT EXISTS guardarRegistros
+ON SCHEDULE EVERY 1 WEEK
+DO BEGIN
+  
+END $$
+DELIMITER ;
 
 /*
 Ejercicio 05
