@@ -11,13 +11,12 @@ DELIMITER $$
 DROP EVENT IF EXISTS guardarCorreos $$
 CREATE EVENT guardarCorreos
 ON SCHEDULE EVERY 1 MONTH STARTS TIMESTAMP(CURRENT_DATE + INTERVAL (1 - DAY(CURRENT_DATE)) DAY) + INTERVAL 1 MONTH - INTERVAL 1 DAY
-DO
-BEGIN
-    SET @file_name = CONCAT('C:/xampp/mysql/data', LPAD(MONTH(CURRENT_DATE), 2, '0'), '_', YEAR(CURRENT_DATE), '.txt');/*
-    SELECT email INTO OUTFILE @file_name
-    FIELDS TERMINATED BY ',' LINES TERMINATED BY ';'
-    FROM persona WHERE email IS NOT NULL;*/
-END $$
+DO BEGIN
+    SET @file_name = CONCAT('C:/xampp/mysql/data', LPAD(MONTH(CURRENT_DATE), 2, '0'), '_', YEAR(CURRENT_DATE), '.txt');
+    PREPARE stmt1 FROM @file_name;
+    EXECUTE stmt1;
+    DEALLOCATE PREPARE stmt1;
+    END $$
 DELIMITER ;
 
 /*
