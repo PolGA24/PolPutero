@@ -99,13 +99,21 @@ registro es null hemos de obviar aquella fila) en un fichero de texto que tendr�
 sea el número de mes actual y AÑO sea el año actual).
 */
 
+SET GLOBAL event_scheduler = ON;
+
 DELIMITER $$
-DROP EVENT IF EXISTS guardarCorreos $$
-CREATE EVENT IF NOT EXISTS guardarCorreos
-ON SCHEDULE EVERY 1 MONTH
-DO BEGIN
-  SET @mail = (SELECT correo FROM persona WHERE correo NOT LIKE "");
+
+CREATE EVENT guardarCorreos
+ON SCHEDULE EVERY 1 MONTH STARTS TIMESTAMP(CURRENT_DATE + INTERVAL (1 - DAY(CURRENT_DATE)) DAY) + INTERVAL 1 MONTH - INTERVAL 1 DAY
+DO
+BEGIN
+    SET @file_name = CONCAT('/tmp/correos_', LPAD(MONTH(CURRENT_DATE), 2, '0'), '_', YEAR(CURRENT_DATE), '.txt');
+    SELECT email FROM persona WHERE email IS NOT NULL
+    INTO OUTFILE @file_name
+    FIELDS TERMINATED BY '\n'
+    LINES TERMINATED BY '\n';
 END $$
+
 DELIMITER ;
 
 /*
@@ -115,13 +123,25 @@ UPDATE y cuantos registros haya sobre DELETE. El nombre del fichero será estad�
 de la fecha del día en que se ejecuta el evento).
 */
 
-DELIMITER $$
-DROP EVENT IF EXISTS guardarRegistros $$
-CREATE EVENT IF NOT EXISTS guardarRegistros
-ON SCHEDULE EVERY 1 WEEK
-DO BEGIN
-  
+SET GLOBAL event_scheduler = ON;
+
+DELIMITER  $$
+
+CREATE EVENT guardar_estadisticas_domingo
+ON SCHEDULE EVERY 1 WEEK STARTS TIMESTAMP(DATE_ADD(CURRENT_DATE, INTERVAL (7 - DAYOFWEEK(CURRENT_DATE)) DAY) + INTERVAL '23:59' HOUR_MINUTE)
+DO
+BEGIN
+    SET @file_name = CONCAT('/tmp/estadisticas_', CURRENT_DATE, '.txt');
+    SELECT CONCAT('INSERTS: ', COUNT(*)) FROM log WHERE operacion = 'INSERT'
+    UNION ALL
+    SELECT CONCAT('UPDATES: ', COUNT(*)) FROM log WHERE operacion = 'UPDATE'
+    UNION ALL
+    SELECT CONCAT('DELETES: ', COUNT(*)) FROM log WHERE operacion = 'DELETE'
+    INTO OUTFILE @file_name
+    FIELDS TERMINATED BY '\n'
+    LINES TERMINATED BY '\n';
 END $$
+
 DELIMITER ;
 
 /*
@@ -131,7 +151,23 @@ Las tablas solo deben crearse la primera vez ya que después siempre existirán.
 con la información actual de la BBDD sobre la que hacéis el backup.
 */
 
+SET GLOBAL event_scheduler = ON;
 
+DELIMITER $$
+
+CREATE EVENT backup_diario
+ON SCHEDULE EVERY 1 DAY STARTS TIMESTAMP(CURRENT_DATE + INTERVAL 4 HOUR)
+DO
+BEGIN
+    CREATE TABLE IF NOT EXISTS backup_persona LIKE persona;
+    TRUNCATE TABLE backup_persona;
+    INSERT INTO backup_persona SELECT * FROM persona;
+    CREATE TABLE IF NOT EXISTS backup_log LIKE log;
+    TRUNCATE TABLE backup_log;
+    INSERT INTO backup_log SELECT * FROM log;
+END $$
+
+DELIMITER ;
 
 --Ejercicio 06
 --Escribe las operaciones de DCL detalladas en la siguiente lista:
