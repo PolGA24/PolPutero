@@ -26,22 +26,20 @@ UPDATE y cuantos registros haya sobre DELETE. El nombre del fichero será estad�
 de la fecha del día en que se ejecuta el evento).
 */
 
-SET GLOBAL event_scheduler = ON;
+SET GLOBAL event_scheduler = 1;
 
 DELIMITER  $$
+DROP EVENT IF EXISTS guardar_estadisticas_domingo $$
 CREATE EVENT guardar_estadisticas_domingo
 ON SCHEDULE EVERY 1 WEEK STARTS TIMESTAMP(DATE_ADD(CURRENT_DATE, INTERVAL (7 - DAYOFWEEK(CURRENT_DATE)) DAY) + INTERVAL '23:59' HOUR_MINUTE)
-DO
-BEGIN
-    SET @file_name = CONCAT('/tmp/estadisticas_', CURRENT_DATE, '.txt');
-    SELECT CONCAT('INSERTS: ', COUNT(*)) FROM log WHERE operacion = 'INSERT'
-    UNION ALL
-    SELECT CONCAT('UPDATES: ', COUNT(*)) FROM log WHERE operacion = 'UPDATE'
-    UNION ALL
-    SELECT CONCAT('DELETES: ', COUNT(*)) FROM log WHERE operacion = 'DELETE'
-    INTO OUTFILE @file_name
-    FIELDS TERMINATED BY '\n'
-    LINES TERMINATED BY '\n';
+DO BEGIN
+    SET @file_name = CONCAT("SELECT CONCAT('INSERTS: ', COUNT(*)) FROM log WHERE operacion = 'INSERT'
+                     UNION ALL
+                     SELECT CONCAT('UPDATES: ', COUNT(*)) FROM log WHERE operacion = 'UPDATE'
+                     UNION ALL
+                     SELECT CONCAT('DELETES: ', COUNT(*)) FROM log WHERE operacion = 'DELETE'
+                     INTO OUTFILE 'C:/xampp/mysql/data'", CURRENT_DATE, "'.txt'
+                     FIELDS TERMINATED BY ';' LINES TERMINATED BY '\n'");
 END $$
 DELIMITER ;
 
