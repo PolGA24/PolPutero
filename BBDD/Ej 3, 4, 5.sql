@@ -50,14 +50,13 @@ Las tablas solo deben crearse la primera vez ya que después siempre existirán.
 con la información actual de la BBDD sobre la que hacéis el backup.
 */
 
-SET GLOBAL event_scheduler = ON;
+SET GLOBAL event_scheduler = 1;
 
 DELIMITER $$
-
+DROP EVENT IF EXISTS backup_diario $$
 CREATE EVENT backup_diario
 ON SCHEDULE EVERY 1 DAY STARTS TIMESTAMP(CURRENT_DATE + INTERVAL 4 HOUR)
-DO
-BEGIN
+DO BEGIN
     CREATE TABLE IF NOT EXISTS backup_persona LIKE persona;
     TRUNCATE TABLE backup_persona;
     INSERT INTO backup_persona SELECT * FROM persona;
@@ -65,5 +64,4 @@ BEGIN
     TRUNCATE TABLE backup_log;
     INSERT INTO backup_log SELECT * FROM log;
 END $$
-
 DELIMITER ;
