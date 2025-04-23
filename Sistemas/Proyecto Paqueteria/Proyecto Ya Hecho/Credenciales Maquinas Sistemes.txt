@@ -1,0 +1,8 @@
+Todos los Usuarios de primeras tienen: 
+- contraseña: 159378624
+Pero lo de la configuración para iniciar sesión una vez y luego se borre contraseña la contraseña inicial és
+- contraseña: sistemes2025-
+Para poder entrar como administrador (ejemplo modificar nombre de PC)
+- Usuario: ros\administrator
+- Contraseña: sistemas2025-
+Y estas son todos los usuarios/contraseñas necesarias para entrar a todo, si no os funciona ir probando entre las contraseñas (q solo hay 2) y si no va ps me decis :)
