@@ -1,0 +1,145 @@
+<!-- WEB DE CONSULTA -->
+https://xpather.com/
+
+EXERCICI 1
+Els preus de tots els llibres. La sortida ha de ser:
+          30.00, 29.99, 49.99, 39.95
+//price/text()
+
+Els títols dels llibres el preu dels quals > 35. La sortida ha de ser:
+          XQuery Kick Start, Learning XML
+//book[price>35]/title/text()
+        
+Els elements <book> que la seva category="CHILDREN". La sortida ha de ser:
+          <book category="CHILDREN">
+            <title lang="en">Harry Potter</title>
+            <author>J K. Rowling</author>
+            <year>2005</year>
+            <price>29.99</price>
+          </book>
+//book[@category="CHILDREN"]
+
+Els elements <book> de l'any 2005 (year=2005) i el preu del qual sigui 30 (price=30). La sortida ha de ser:
+          <book category="COOKING">
+            <title lang="en">Everyday Italian</title>
+            <author>Giada De Laurentiis</author>
+            <year>2005</year>
+            <price>30.00</price>
+          </book>
+//book[year=2005][price=30]
+
+Els elements <book> l'any de publicació dels quals (year) coincideixi amb l'any de publicació del llibre que té per títol "Everyday Italian". La sortida ha de ser:
+          <book category="COOKING">
+            <title lang="en">Everyday Italian</title>
+            <author>Giada De Laurentiis</author>
+            <year>2005</year>
+            <price>30.00</price>
+          </book>
+          <book category="CHILDREN">
+            <title lang="en">Harry Potter</title>
+            <author>J K. Rowling</author>
+            <year>2005</year>
+            <price>29.99</price>
+          </book>
+//book[year=(//book[title="Everyday Italian"]/year/text())]
+        
+Els títols dels llibres la categoria dels quals coincideixi amb la categoria del llibre seu títol és 'XQuery Kick Start'. La sortida ha de ser:
+          XQuery Kick Start, Learning XML
+//book[@category=(//book[title="XQuery Kick Start"]/@category)]/title/text()
+        
+L'element <author> del llibre el títol del qual és 'XQuery Kick Start', on el nom de l'autor comença per 'K'. La sortida ha de ser:
+          <author>Kurt Cagle</author>
+//book[title="XQuery Kick Start"]/author[contains(.,"K")]
+        
+Títol dels llibres el títol dels quals contingui 'XM'. La sortida ha de ser:
+          Learning XML
+//book/title[contains(.,"XM")]/text()
+
+EXERCICI 2
+
+Quins cicles s'imparteixen en l'institut?
+//cicle/text()
+
+Quins cicles de grau mitjà s'imparteixen en l'institut?
+//cicle[@grau="Mig"]/text()
+
+Els noms dels alumnes suspesos
+//alumne[@aprovat="NO"]/nom/text()
+
+Quantes dones cursen el cicle de ASIX?
+count(//classe[@nom="ASIX"]/alumne[genere="Dona"])
+
+Nom dels alumnes suspesos que tenen compte de hotmail
+//alumne[@aprovat="NO"][contains(email,"hotmail")]/nom/text()
+
+Nom dels cicles on hi ha alumnes que tenen un 10
+//classe[alumne/nota=10]/@nom
+
+Quants alumnes han aprovat ASIX?
+count(//classe[@nom="ASIX"]/alumne[@aprovat="SI"])
+
+Quin percentatge d'aprovats té el centre?
+(100 div count(//alumne))*count(//alumne[@aprovat="SI"])
+
+EXERCICI 3
+
+Quin temps farà a Girona el 23 Maig 14.00h?
+//poblacio[nom="Girona"]/data[@dia="23-05-2018"]/previsio[@hora="14:00"]/estat/text()
+
+Quina quantitat d'aigua caurà a Salt el dia 22 Maig?
+//poblacio[nom="Salt"]/data[@dia="22-05-2018"]/pluja/text()
+
+Quins dies plourà a Olot?
+//poblacio[nom="Olot"]/data[previsio[contains(estat,"pluja")]]/@dia
+
+Nom de les poblacions on hi haurà 24 graus a les 08.00h
+//poblacio[data/maxima=24][data/previsio/@hora="08:00"]/nom/text()
+
+Quina és la mitjana de temperatures del Alt Empordá?
+sum(//poblacio[comarca="Alt Empordà"]/data/previsio/graus/text()) div count(//poblacio[comarca="Alt Empordà"]/data/previsio/graus/text())
+
+EJERCICIO GPT
+
+Nivel básico:
+Listado de localidades: Muestra el nombre de todas las poblaciones presentes en el XML.
+//poblacio/nom/text()
+
+Temperaturas máximas: Extrae la temperatura máxima del día 21-05-2018 para cada población.
+//poblacio/data[@dia="21-05-2018"]/concat(../nom, ' : ', maxima/text())
+
+Estados del tiempo: Para la población de "Olot", muestra el estado del cielo a las 14:00 del día 22-05-2018.
+//poblacio[nom="Olot"]/data[@dia="22-05-2018"]/previsio[@hora="14:00"]/estat/text()
+
+Comarcas únicas: Obtén el listado de comarcas sin repetir.
+distinct-values(//comarca)
+
+Previsión matinal: Muestra las temperaturas previstas a las 08:00 del día 24-05-2018 en todas las poblaciones.
+//poblacio/data[@dia="24-05-2018"]/previsio[@hora="08:00"]/concat(../../nom, ': ', graus/text())
+
+Nivel intermedio:
+Días soleados: Para la población de "Salt", muestra los días en los que a las 14:00 se pronostica tiempo soleado.
+//poblacio[nom="Salt"]/data[previsio[@hora="14:00"][estat="solejat"]]/@dia
+
+Comparativa de viento: Muestra el valor del viento del día 24-05-2018 para todas las poblaciones.
+//poblacio/data[@dia="24-05-2018"]/concat(../nom, ': ', vent/text())
+
+Evolución de temperatura: Para "Girona", lista los grados previstos a las 08:00 de todos los días en orden cronológico.
+//poblacio[nom="Girona"]/data/previsio[@hora="08:00"]/concat(../@dia, ': ', graus/text())
+
+Poblaciones con lluvia: Muestra las poblaciones en las que hay previsión de lluvia el día 22-05-2018 (ya sea como estado o valor de precipitaciones).
+//poblacio[data/@dia="22-05-2018"][data/previsio[contains(estat, "pluja")]]/nom/text()
+
+Días con mínimas superiores a 15°C: Lista los días en los que la temperatura mínima fue superior a 15 grados para la población de "Roses".
+//poblacio[nom="Roses"]/data[minima>15]/@dia
+
+Nivel avanzado:
+Mayor temperatura máxima: Indica qué población ha registrado la mayor temperatura máxima en todo el periodo.
+//poblacio[.//maxima = max(//maxima)]/nom/text()
+
+Variación diaria en Olot: Para "Olot", muestra por cada día la diferencia entre la temperatura máxima y mínima.
+
+Estadísticas de viento por comarca: Calcula la media de la velocidad del viento para cada comarca.
+
+Estados variados: Indica las poblaciones que han tenido más de 3 estados del tiempo distintos en total durante la semana.
+
+Previsión nocturna nublada: Muestra los días y poblaciones donde a las 20:00 el cielo está “ennuvolat”.
