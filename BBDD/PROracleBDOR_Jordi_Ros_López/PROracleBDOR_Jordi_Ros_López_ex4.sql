@@ -92,6 +92,7 @@ DECLARE
     productos LISTA_PRODUCTOS_T := LISTA_PRODUCTOS_T(p1, p2, p3);
     productos_frescos LISTA_PRODUCTOS_FRESCOS_T := LISTA_PRODUCTOS_FRESCOS_T(pf1, pf2);
 BEGIN
+    -- MOSTRAR LISTA DE PROUCTOS
     FOR i IN (SELECT VALUE(p) prod FROM TABLE(productos) p
         ORDER BY VALUE(p)
     ) LOOP
@@ -99,6 +100,7 @@ BEGIN
         i.prod.precioTotal();
     END LOOP;
 
+    -- MOSTRAR LISTA DE PRODUCTOS FRESCOS + ESTADO DE CADUCIDAD
     FOR i IN (SELECT VALUE(p) prod FROM TABLE(productos_frescos) p
         ORDER BY VALUE(p)
     ) LOOP
