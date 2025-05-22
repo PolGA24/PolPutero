@@ -1,6 +1,7 @@
 DROP TYPE producto_fresco_t FORCE;
 DROP TYPE producto_t FORCE;
 DROP TYPE lista_productos_t FORCE;
+DROP TYPE lista_productos_frescos_t FORCE;
 
 CREATE OR REPLACE TYPE producto_t AS OBJECT (
     idProducto NUMBER,
@@ -74,28 +75,35 @@ CREATE OR REPLACE TYPE BODY producto_fresco_t AS
 END;
 /
 
-CREATE OR REPLACE TYPE lista_productos_t AS TABLE OF producto_T;
+CREATE OR REPLACE TYPE lista_productos_t AS TABLE OF producto_t;
+/
+
+CREATE OR REPLACE TYPE lista_productos_frescos_t AS TABLE OF producto_fresco_t;
 /
 
 DECLARE
     p1 PRODUCTO_T := PRODUCTO_T(1, 'Manzana', 2.99, 10);
     p2 PRODUCTO_T := PRODUCTO_T(2, 'Platano', 1.50, 15);
     p3 PRODUCTO_T := PRODUCTO_T(3, 'Pera',    1.80, 20);
-    pf PRODUCTO_FRESCO_T := PRODUCTO_FRESCO_T(4, 'Uvas', 3.50, 18, 'Fruta', TO_DATE('2025-06-01','YYYY-MM-DD'));
 
-    productos LISTA_PRODUCTOS_T := LISTA_PRODUCTOS_T(p1, p2, p3, pf);
+    pf1 PRODUCTO_FRESCO_T := PRODUCTO_FRESCO_T(4, 'Uvas', 3.50, 18, 'Fruta', TO_DATE('2025-06-01','YYYY-MM-DD'));
+    pf2 PRODUCTO_FRESCO_T := PRODUCTO_FRESCO_T(5, 'Sandia', 10.99, 14, 'Fruta', TO_DATE('2025-04-23','YYYY-MM-DD'));
 
-    pf_temp PRODUCTO_FRESCO_T;
+    productos LISTA_PRODUCTOS_T := LISTA_PRODUCTOS_T(p1, p2, p3);
+    productos_frescos LISTA_PRODUCTOS_FRESCOS_T := LISTA_PRODUCTOS_FRESCOS_T(pf1, pf2);
 BEGIN
     FOR i IN (SELECT VALUE(p) prod FROM TABLE(productos) p
         ORDER BY VALUE(p)
     ) LOOP
         i.prod.mostrarInfoProducto();
+        i.prod.precioTotal();
+    END LOOP;
 
-        IF pf_temp IS NOT NULL THEN
-            pf_temp.verificarCaducidad(); -- SI ES PRODUCTO_FRESCO DIRA SI EL PRODUCTO ESTA CADUCADO O NO
-        END IF;
-
+    FOR i IN (SELECT VALUE(p) prod FROM TABLE(productos_frescos) p
+        ORDER BY VALUE(p)
+    ) LOOP
+        i.prod.mostrarInfoProducto();
+        i.prod.verificarCaducidad();
         i.prod.precioTotal();
     END LOOP;
 END;

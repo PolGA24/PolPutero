@@ -1,3 +1,6 @@
+DROP TABLE alumnos FORCE;
+DROP TYPE alumno_t FORCE;
+
 CREATE OR REPLACE TYPE alumno_t AS OBJECT (
     id NUMBER,
     nombre VARCHAR2(50),
@@ -29,8 +32,8 @@ BEGIN
 
     UPDATE alumnos SET delegado = r2 WHERE id = 3;        -- ESTABLECIDO DELEGADO ALUMNO 2
 
-    SELECT nombre FROM alumnos WHERE delegado IS NULL;    -- VER ALUMNOS SIN DELEGADOS
+    --SELECT nombre FROM alumnos WHERE delegado IS NULL;    -- VER ALUMNOS SIN DELEGADOS
 
-    SELECT delegado FROM alumnos WHERE id = 3;            -- OBTENER DELEGADO DEL ALUMNO 3
+    --SELECT delegado FROM alumnos WHERE id = 3;            -- OBTENER DELEGADO DEL ALUMNO 3
 END;
 /
