@@ -1,0 +1,7 @@
+Ejercicio 5:
+
+5.1:
+{ "terrain": { "$regex": "mountains", "$options": "i" } }
+
+5.2
+
