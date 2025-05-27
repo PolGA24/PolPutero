@@ -9,7 +9,8 @@ Punt 2:
 
 
 Punt 3:
-
+{ species: "Human", gender: 'female', homeworld: "Tatooine" }
 
 
 Punt 4:
+{ species: "Human", gender: 'female', homeworld: "Aldeeran", name: { $ne: 'Leia Organa'} }

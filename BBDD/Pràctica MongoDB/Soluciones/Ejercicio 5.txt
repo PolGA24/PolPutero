@@ -4,4 +4,34 @@ Ejercicio 5:
 { "terrain": { "$regex": "mountains", "$options": "i" } }
 
 5.2
+Sort: {name: 1}
 
+5.3
+Projects: { "name": 1, "classification": 1, "average_lifespan": 1, "_id": 0 }
+Sort: { "classification": 1, "average_lifespan": 1 }
+
+5.4
+Limit: 3
+Sort: {"cargo_capacity": -1}
+
+5.5
+$group: 
+{
+    "_id": null,
+    "total_population": { "$sum": "$population" }
+}
+$project:
+{
+    "_id": 0,
+    "total_population": 1
+}
+5.6
+{ "cost_in_credits": {"$gte": 5000, "$lte": 6000}, "vehicle_class":{"$nin": ["airspeeder", "speeder"]} }
+5.7
+{"vehicle_class": "starfighter"}
+5.8
+{"starship_class": {"$regex": "starfighter", "$options": "i"}}
+5.9
+{ "$or": [{"gender": "male", "homeworld": "Naboo" }, {"gender": "female", "homeworld": "Coruscant"}]}
+5.10
+{"size": {"$exists": true}}
