@@ -1,0 +1,76 @@
+Ejercicio 2:
+
+2.Characters:
+{
+
+"name": "Kara Vex",
+"height": "175",
+"mass": "65",
+"hair_color": "black",
+"skin_color": "tan",
+"eye_color": "green"
+"birth_year": "15BBY",
+"gender": "female",
+"homewor ld": "Ryloth",
+"species": "Twi'lek"
+
+}
+2.Planets:
+{
+"name": "Zerith Prime",
+"rotation_period": "26",
+"orbital_period": "400",
+"diameter": "13300",
+"climate": "arid",
+"gravity": "1.1 standard",
+"terrain": "canyons, mesas",
+"surface_water": "5",
+"population": "12000000"
+}
+
+2.Species:
+{
+"name": "Wookiee",
+"classification": "mammal",
+"designation": "sentient",
+"average_height": "210",
+"skin_colors": "gray",
+"hair_colors": "black, brown",
+"eye_colors": "blue, green, yellow",
+"average_lifespan": "400",
+"language": "Shyriiwook"
+}
+
+2.Starships:
+{
+"name": "Millennium Falcon",
+"model": "YT-1300 light freighter",
+"manufacturer": "Corellian Engineering Corporation",
+"cost_in_credits": "100000",
+"length": "34.37",
+"max_atmosphering_speed": "105e",
+"crew": "4",
+"passengers": "6",
+"cargo_capacity": "100000",
+"consumables": "2 months",
+"hyperdrive_rating": "0.5",
+"MGLT": "75",
+"starship_class": "Light freighter"
+}
+
+2.Vehicles
+{
+"name": "Speeder Bike",
+"model": "74-Z",
+"manufacturer": "Aratech Repulsor Company",
+"cost_in_credits": "8000",
+"length": "3",
+"max_atmosphering_speed": "360",
+"crew": "1",
+"passengers": "1",
+"cargo_capacity": "4",
+"consumables": "1 day",
+"vehicle_class": "speeder"
+}
+
+2.
