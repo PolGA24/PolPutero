@@ -1,0 +1,15 @@
+Ejercicio 4:
+
+Punt 1:
+{ name: "Alderaan" }
+
+
+Punt 2:
+{ name: "Death Star" }
+
+
+Punt 3:
+
+
+
+Punt 4:

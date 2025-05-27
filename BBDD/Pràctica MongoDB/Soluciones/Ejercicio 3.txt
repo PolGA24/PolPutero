@@ -1,2 +1,33 @@
 Ejercicio 3:
 
+Punto 1:
+{ "$inc": { "max_atmosphering_speed": 5 } }
+
+
+Punto 2:
+
+{ "name": "Sand Crawler" }
+
+{ name: 'Geonosian starfighter' }
+{ $set: {"cargo_capacity": 50000 }, }
+
+
+Punto 3:
+{ average_height: { $gte: 190 } }
+{ $set: { size: "top_size" }, }
+
+
+Punto 4:
+db.species.updateMany(
+  { average_height: "NA" },
+  { $set: { average_height: "unknown" } }
+)
+db.species.updateMany(
+  { skin_colors: "NA" },
+  { $set: { skin_colors: "unknown" } }
+)
+
+
+Punto 5:
+{ name: 'Dagobah' }
+{ $set: { gravity: "1.2 standard" }, }
