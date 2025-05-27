@@ -18,14 +18,34 @@ Punto 3:
 
 
 Punto 4:
-db.species.updateMany(
-  { average_height: "NA" },
-  { $set: { average_height: "unknown" } }
-)
-db.species.updateMany(
-  { skin_colors: "NA" },
-  { $set: { skin_colors: "unknown" } }
-)
+{
+    "newRoot": {
+      "$arrayToObject": {
+        "$map": {
+          "input": { "$objectToArray": "$$ROOT" },
+          "as": "pair",
+          "in": {
+            "k": "$$pair.k",
+            "v": {
+              "$cond": [
+                { "$eq": ["$$pair.v", "NA"] },
+                "unknown",
+                "$$pair.v"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+
+{
+    "into": "species",
+    "on": "_id",
+    "whenMatched": "replace",
+    "whenNotMatched": "insert"
+  }
+
 
 
 Punto 5:
